@@ -1,12 +1,9 @@
-import { Box } from "@chakra-ui/react";
-import "./App.css";
-import { ThemeToggle } from "./components/atoms/themeToggle/main";
+import { RegisterSite } from "./components/templates/registerSite/main";
+
 function App() {
   return (
     <>
-      <Box position='absolute' right='10px'>
-        <ThemeToggle />
-      </Box>
+      <RegisterSite />
     </>
   );
 }
