@@ -1,5 +1,5 @@
 import { Image, Link } from "@chakra-ui/react";
-import GG from "../../../../public/images/google.png";
+import GG from "../../../../../public/images/google.png";
 
 
 export const Google = () => {

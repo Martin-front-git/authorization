@@ -1,10 +1,10 @@
 import { Button } from "@chakra-ui/react"
-
+import style from './submit.module.scss';
 
 export const Submit = () => {
   return (
     <>
-        <Button bgGradient='linear(to-r, cyan.400, pink.600)' w='300px' borderRadius='20px' ml='12%'>
+        <Button className={style.submit} bgGradient='linear(to-r, cyan.400, pink.600)' >
             LOGIN
         </Button>
     </>

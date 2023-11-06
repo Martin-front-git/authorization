@@ -1,8 +1,8 @@
 import { Box, Flex } from "@chakra-ui/react";
-import { Facebook } from "../../atoms/facebook/main";
-import { Google } from "../../atoms/google/main";
-import { SignUpInfoText } from "../../atoms/signUpInfoText/main";
-import { Twitter } from "../../atoms/twitter/main";
+import { Facebook } from "../../atoms/links/facebook";
+import { Google } from "../../atoms/links/google";
+import { SignUpInfoText } from "../../atoms/texts/signUpInfoText";
+import { Twitter } from "../../atoms/links/twitter";
 
 export const Usings = () => {
   return (

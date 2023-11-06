@@ -1,5 +1,5 @@
 import { Image, Link } from "@chakra-ui/react";
-import FB from "../../../../public/images/Facebook.webp";
+import FB from "../../../../../public/images/Facebook.webp";
 
 export const Facebook = () => {
   return (

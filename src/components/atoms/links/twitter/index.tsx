@@ -1,5 +1,5 @@
 import { Image, Link } from "@chakra-ui/react";
-import TW from "../../../../public/images/twitter.png";
+import TW from "../../../../../public/images/twitter.png";
 
 
 export const Twitter = () => {

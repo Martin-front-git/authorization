@@ -1,6 +1,6 @@
 import { Box } from "@chakra-ui/react";
-import { Password } from "../../atoms/password/main";
-import { Username } from "../../atoms/username/main";
+import { Password } from "../../atoms/inputs/password";
+import { Username } from "../../atoms/inputs/username";
 
 export const Inputs = () => {
   return (

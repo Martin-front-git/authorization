@@ -1,4 +1,4 @@
-import { RegisterSite } from "./components/templates/registerSite/main";
+import { RegisterSite } from "./components/templates/registerSite";
 
 function App() {
   return (
