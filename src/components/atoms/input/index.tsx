@@ -1,19 +1,12 @@
-import { FormLabel, Input } from "@chakra-ui/react";
-import { IInputs } from "../../../models/interfaces/inputs";
-import { Form } from "react-hook-form";
+import { FormControl, FormLabel, Input } from '@chakra-ui/react';
+import { InputsProps } from '../../../models/interfaces/form';
 
-export const Inputs: React.FC<IInputs> = (props) => {
+
+export function Inputs({ register, label, name }: InputsProps) {
   return (
-    <>
-        <FormLabel>{props.labelText}</FormLabel>
-        <Input
-          type={props.type}
-          placeholder={props.placeholder}
-          border="none"
-          borderBottom="1px"
-        />
-      <Form>
-      </Form>
-    </>
+    <FormControl>
+      <FormLabel ml={12}>{label}</FormLabel>
+      <Input {...register(name)} w='80%' ml={10}/>
+    </FormControl>
   );
-};
+}

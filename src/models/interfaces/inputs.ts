@@ -1,5 +1,5 @@
 export interface IInputs {
-    labelText : string
+    labeltext : string
     type : string
     placeholder : string
   }
