@@ -1,11 +1,11 @@
 import { UseFormRegister } from "react-hook-form";
 
 export interface IForm {
-    username: string;
-    password: string | number;
+   
   }
-  export interface InputsProps {
+  export interface IInputs {
     label: string;
-    name: keyof IForm;
+    name: never | string; 
     register: UseFormRegister<IForm>;
+    type: string;
   }
