@@ -1,0 +1,23 @@
+[
+    {
+      "label": "Имя",
+      "name": "Имя",
+      "type": "text"
+    },
+    {
+      "label": "почта",
+      "name": "почта",
+      "type": "email"
+    },
+    {
+      "label": "телефон",
+      "name": "телефон",
+      "type": "tel"
+    },
+    {
+      "label": "пароль",
+      "name": "пароль",
+      "type": "password"
+    }
+  ]
+  
