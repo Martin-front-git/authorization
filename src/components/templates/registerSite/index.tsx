@@ -5,6 +5,8 @@ import style from './register.module.scss';
 import { Routes, Route } from "react-router-dom";
 import { SignUp } from "../../organisms/signUp";
 import { Links } from "../../atoms/link";
+import UserPage from "../../pages/user";
+import { AdminPage } from "../../pages/admin";
 export const RegisterSite = () => {
  
   const signIn = {
@@ -24,6 +26,8 @@ export const RegisterSite = () => {
     <Routes>
       <Route path="signIn" element={<SignIn/>}/>
       <Route path="signUp" element={<SignUp/>}/>
+      <Route path="user" element={<UserPage/>}/>
+      <Route path="admin" element={<AdminPage/>}/>
     </Routes>
       <Box className={style.registerBlock} >
         <ThemeToggle />

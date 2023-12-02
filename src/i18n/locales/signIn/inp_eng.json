@@ -1,11 +1,11 @@
 [
     {
-      "label": "Username",
-      "name": "username",
+      "label": "email",
+      "name": "email",
       "type": "text"
     },
     {
-      "label": "Password",
+      "label": "password",
       "name": "password",
       "type": "password"
     }

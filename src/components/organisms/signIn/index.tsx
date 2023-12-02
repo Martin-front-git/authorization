@@ -1,63 +1,61 @@
-import { Box, Button, FormControl } from "@chakra-ui/react";
+import { Box, FormControl } from "@chakra-ui/react";
 import { Title } from "../../atoms/text";
 import style from "./signIn.module.scss";
-import { Link } from "../../molecules/links";
 import { useForm } from "react-hook-form";
 import { Inputs } from "../../atoms/input";
 import { IForm } from "../../../models/interfaces/form";
 import { Submit } from "../../atoms/button/submit";
-import inp_eng from "../../../i18n/locales/signIn/inp_eng.json";
-import inp_ru from "../../../i18n/locales/signIn/inp_ru.json";
-import { useState } from "react";
+import inputs from "../../../i18n/locales/signIn/inp_eng.json";
+import { signIn } from "../../../services/axios/logIn";
+//import { useNavigate } from "react-router-dom";
 
 export const SignIn = () => {
-  const [isEng, setIsEng] = useState(false);
-  const toggleState = () => {
-    setIsEng(!isEng);
-  };
+  
   const { register, handleSubmit, reset } = useForm<IForm>({
     mode: "onBlur",
   });
+  //const navigate = useNavigate();
 
-  const onSubmit = (data: IForm) => {
-    console.log(data);
-    reset();
+  const onSubmit = async (data: IForm) => {
+    try {
+      reset();
+
+      const response = await signIn({
+        email: data.email,
+        password: data.password,
+      });
+
+      //if (response) {
+      //navigate("/user");
+      // const response = await axios.get("http://116.203.128.127:5680/api/v1/tasks?take=10&skip=0", {});
+      // console.log(response);
+
+      //}
+
+      return response;
+    } catch (error) {
+      console.error("Токен отсутствует или произошла ошибка входа", error);
+    }
   };
-  const languages = [
-    { code: "eng", inputs: inp_eng },
-    { code: "ru", inputs: inp_ru },
-  ];
+
   return (
     <Box className={style.authorizationBox}>
-      <Title text={isEng ? "Registration" : "Регистрация"}/>
-      <Button
-        className={style.lang_btn}
-        bgGradient="linear(to-r, cyan.400, pink.600)"
-        onClick={toggleState}
-      >
-        {isEng ? "Ru" : "Eng"}
-      </Button>
+      <Title text={"Sign In"} />
       <FormControl>
         <form onSubmit={handleSubmit(onSubmit)}>
-          {languages
-            .find((lang) => lang.code === (isEng ? "eng" : "ru"))
-            ?.inputs.map((inp) => (
-              <>
-              <Box key={inp.name}>
-                <Inputs
-                  register={register}
-                  label={inp.label}
-                  name={inp.name}
-                  type={inp.type}
-                />
-              </Box>
-              </>
-            ))}
-            <Submit text={isEng ? "Registration" : "Регистрация"} />
-          
+          {inputs.map((inp) => (
+            <Box key={inp.name}>
+              <Inputs
+                register={register}
+                label={inp.label}
+                name={inp.name}
+                type={inp.type}
+              />
+            </Box>
+          ))}
+          <Submit text={"Sign In"} />
         </form>
       </FormControl>
-      <Link />
     </Box>
   );
 };

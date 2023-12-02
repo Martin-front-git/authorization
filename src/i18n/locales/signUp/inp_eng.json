@@ -1,7 +1,11 @@
 [
     {
-      "label": "Username",
-      "name": "username",
+      "label": "Firstname",
+      "name": "firstName",
+      "type": "text"
+    },{
+      "label": "Lastname",
+      "name": "lastName",
       "type": "text"
     },
     {
@@ -9,11 +13,7 @@
       "name": "email",
       "type": "email"
     },
-    {
-      "label": "Telephone",
-      "name": "telephone",
-      "type": "tel"
-    },
+    
     {
       "label": "Password",
       "name": "password",
