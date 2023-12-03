@@ -6,32 +6,24 @@ import { IForm } from "../../../models/interfaces/form";
 import { Submit } from "../../atoms/button/submit";
 import inputs from "../../../i18n/locales/signUp/inp_eng.json";
 import { Title } from "../../atoms/text";
-import axios from "axios";
+import { signUpAxios } from "../../../services/axios/signUp";
 
 export const SignUp = () => {
-  //const BASE_URL = import.meta.env.BASE_URL;
   const { register, handleSubmit, reset } = useForm<IForm>({
     mode: "onBlur",
   });
 
-  const onSubmit = (data: IForm) => {
+  const onSubmit = async (data: IForm) => {
     console.log(data);
     reset();
 
-    axios
-      .post("http://116.203.128.127:5680/api/v1/auth/register", 
-      {
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        password: data.password,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    const response = await signUpAxios({
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email : data.email,
+      password : data.password
+    });
+    console.log(response);
   };
 
   return (

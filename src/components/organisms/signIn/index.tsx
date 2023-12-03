@@ -6,7 +6,7 @@ import { Inputs } from "../../atoms/input";
 import { IForm } from "../../../models/interfaces/form";
 import { Submit } from "../../atoms/button/submit";
 import inputs from "../../../i18n/locales/signIn/inp_eng.json";
-import { signIn } from "../../../services/axios/logIn";
+import { signInAxios } from "../../../services/axios/signIn";
 //import { useNavigate } from "react-router-dom";
 
 export const SignIn = () => {
@@ -20,15 +20,13 @@ export const SignIn = () => {
     try {
       reset();
 
-      const response = await signIn({
+      const response = await signInAxios({
         email: data.email,
         password: data.password,
       });
 
       //if (response) {
       //navigate("/user");
-      // const response = await axios.get("http://116.203.128.127:5680/api/v1/tasks?take=10&skip=0", {});
-      // console.log(response);
 
       //}
 
