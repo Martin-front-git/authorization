@@ -1,11 +1,11 @@
-// UserPage.tsx
 import { useState } from "react";
-import { Box } from "@chakra-ui/react";
-import { useTasks } from "./useTasks";
+import { Box, Button } from "@chakra-ui/react";
 import DeleteButton from "../../atoms/button/delete";
+import { NewTask } from "./newTask";
+import { useTasks } from "../../../hooks/useTasks";
 
 const UserPage = () => {
-  const { tasks, loading, error } = useTasks();
+  const { tasks, loading, error, fetchTasksList } = useTasks();
   const [isTasksVisible, setTasksVisible] = useState(false);
 
   const toggleTasksVisibility = () => {
@@ -14,9 +14,10 @@ const UserPage = () => {
 
   return (
     <>
-      <button onClick={toggleTasksVisibility} disabled={loading}>
+      <NewTask onSave={fetchTasksList} />
+      <Button onClick={toggleTasksVisibility} disabled={loading}>
         {isTasksVisible ? "Скрыть" : "Показать"}
-      </button>
+      </Button>
 
       {loading && <p>Идет загрузка...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
@@ -37,9 +38,6 @@ const UserPage = () => {
 };
 
 export default UserPage;
-
-
-
 
 
 //======================================================================================//

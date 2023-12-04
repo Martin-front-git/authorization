@@ -1,8 +1,9 @@
+// useTasks.ts
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { tokenCookie } from "../../../hooks/tokenCookie";
-import { getTasks } from "../../../services/axios/getTasks";
-import { setTasks, selectTasks } from "../../../store/slices/tasksSlice";
+import { selectTasks, setTasks } from "../store/slices/tasksSlice";
+import { tokenCookie } from "./tokenCookie";
+import { getTasks } from "../services/axios/getTasks";
 
 export const useTasks = () => {
   const [loading, setLoading] = useState(false);
@@ -28,6 +29,7 @@ export const useTasks = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    // Вызываем fetchTasksList только при монтировании компонента
     fetchTasksList();
   }, [fetchTasksList]);
 
