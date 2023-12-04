@@ -1,4 +1,3 @@
-// store/slices/tasksSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
@@ -35,10 +34,16 @@ const tasksSlice = createSlice({
     deleteTask: (state, action: PayloadAction<number>) => {
       state.tasks = state.tasks.filter(task => task.id !== action.payload);
     },
+    updateTask: (state, action: PayloadAction<Task>) => {
+      const index = state.tasks.findIndex(task => task.id === action.payload.id);
+      if (index !== -1) {
+        state.tasks[index] = action.payload;
+      }
+    },
   },
 });
 
-export const { setTasks, deleteTask, addTask} = tasksSlice.actions;
+export const { setTasks, deleteTask, addTask, updateTask } = tasksSlice.actions;
 
 export const selectTasks = (state: RootState) => state.tasks.tasks;
 

@@ -1,4 +1,3 @@
-// useTasks.ts
 import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectTasks, setTasks } from "../store/slices/tasksSlice";
@@ -29,7 +28,6 @@ export const useTasks = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    // Вызываем fetchTasksList только при монтировании компонента
     fetchTasksList();
   }, [fetchTasksList]);
 
