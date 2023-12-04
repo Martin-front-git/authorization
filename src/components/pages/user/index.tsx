@@ -1,38 +1,12 @@
-import { useState, useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { tokenCookie } from "../../../hooks/tokenCookie";
-import { getTasks } from "../../../services/axios/getTasks";
-import { setTasks, selectTasks } from "../../../store/slices/tasksSlice";
+// UserPage.tsx
+import { useState } from "react";
 import { Box } from "@chakra-ui/react";
-//import axios from 'axios'
+import { useTasks } from "./useTasks";
+import DeleteButton from "../../atoms/button/delete";
 
 const UserPage = () => {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const dispatch = useDispatch();
-  const tasks = useSelector(selectTasks);
+  const { tasks, loading, error } = useTasks();
   const [isTasksVisible, setTasksVisible] = useState(false);
-
-  const fetchTasksList = useCallback(async () => {
-    const token = tokenCookie.get("token");
-    if (!token) return;
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      const response = await getTasks({ token });
-      dispatch(setTasks(response.data));
-    } catch (error) {
-      setError("Произошла ошибка при загрузке задач.");
-    } finally {
-      setLoading(false);
-    }
-  }, [dispatch]);
-
-  useEffect(() => {
-    fetchTasksList();
-  }, [fetchTasksList]);
 
   const toggleTasksVisibility = () => {
     setTasksVisible(!isTasksVisible);
@@ -41,15 +15,16 @@ const UserPage = () => {
   return (
     <>
       <button onClick={toggleTasksVisibility} disabled={loading}>
-        {isTasksVisible ? "Скрыть задачи" : "Показать задачи"}
+        {isTasksVisible ? "Скрыть" : "Показать"}
       </button>
 
       {loading && <p>Идет загрузка...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {isTasksVisible && tasks.length > 0 && (
-        <Box display="flex" flexWrap="wrap" w="100%">
+        <Box display="flex" flexWrap="wrap" w="100%" gap={5} justifyContent='center'>
           {tasks.map((task, index) => (
-            <Box key={index} w="200px" height="200px" borderWidth="1px" p="4">
+            <Box key={index} w="200px" height="100px" borderWidth="1px" p="4" position='relative'>
+              <DeleteButton taskId={task.id} />
               <p>{task.id}</p>
               <p>{task.title}</p>
               <p>{task.description}</p>
@@ -66,6 +41,7 @@ export default UserPage;
 
 
 
+
 //======================================================================================//
 
 //---------- POST ----------------//
@@ -74,7 +50,7 @@ export default UserPage;
 //     axios.post('http://116.203.128.127:5680/api/v1/tasks',
 //     {
 //       "title": "Privet",
-//       "description": "Martinnhv",
+//       "description": "Martinn",
 //       "dueDate": "2023-12-03",
 //       "status": "To Do"
 //     }, {
