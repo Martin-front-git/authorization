@@ -1,6 +1,5 @@
-export interface ICookie {
-    token: string;
-}
+import { ICookie } from "../models/interfaces/token";
+
 
 export const tokenCookie = {
   set: ({ token }: ICookie) => {

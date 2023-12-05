@@ -1,14 +1,11 @@
 import { Button } from "@chakra-ui/react";
 import { IButton } from "../../../../models/interfaces/button";
 
-export const Delete = ({ text, onClick }: IButton) => {
+export const Buton = ({ text, onClick }: IButton) => {
   return (
     <Button
-      bg='tomato'
-      w={10}
-      top={0}
-      right={0}
-      position={"absolute"}
+      bgGradient="linear(to-r, cyan.400, pink.600)"
+      w="100px"
       type="submit"
       onClick={onClick}
     >

@@ -1,13 +1,12 @@
-import { Box, Button, Input, Textarea } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { tokenCookie } from "../../../hooks/tokenCookie";
-import { addTask } from "../../../store/slices/tasksSlice";
-
-interface NewTaskProps {
-  onSave: () => void;
-}
+import { tokenCookie } from "./tokenCookie";
+import { addTask } from "../store/slices/tasksSlice";
+import { NewTaskProps } from "../models/interfaces/tasks";
+import { Buton } from "../components/atoms/button/button";
+import { Textareaa } from "../components/atoms/textarea";
 
 export const NewTask: React.FC<NewTaskProps> = ({ onSave }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,20 +56,20 @@ export const NewTask: React.FC<NewTaskProps> = ({ onSave }) => {
 
   return (
     <Box>
-      <Button onClick={toggleForm}>New task</Button>
+      <Buton onClick={toggleForm} text={"New task"} />
       {isOpen && (
         <Box>
-          <Input
+          <Textareaa
             placeholder="Title"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onchange={(e) => setTitle(e.target.value)}
           />
-          <Textarea
+          <Textareaa
             placeholder="Description"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onchange={(e) => setDescription(e.target.value)}
           />
-          <Button onClick={handleSave}>Сохранить</Button>
+          <Buton onClick={handleSave} text={'Save'}/>
         </Box>
       )}
     </Box>

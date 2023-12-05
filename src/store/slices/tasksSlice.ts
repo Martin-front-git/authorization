@@ -1,28 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-
-export interface Task {
-  id: number;
-  title: string;
-  description: string;
-}
-
-interface TasksState {
-  tasks: Task[];
-  loading: boolean;
-  error: string | null;
-}
+import { TasksState } from '../../models/interfaces/tasks';
+import { Task } from '../../models/types/types';
 
 const initialState: TasksState = {
   tasks: [],
   loading: false,
   error: null,
+  page: 1, 
 };
 
 const tasksSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
+    setPage: (state, action: PayloadAction<number>) => {
+      state.page = action.payload;
+    },
     setTasks: (state, action: PayloadAction<Task[]>) => {
       state.tasks = action.payload;
       state.loading = false;
@@ -43,8 +37,9 @@ const tasksSlice = createSlice({
   },
 });
 
-export const { setTasks, deleteTask, addTask, updateTask } = tasksSlice.actions;
+export const { setPage, setTasks, deleteTask, addTask, updateTask } = tasksSlice.actions;
 
 export const selectTasks = (state: RootState) => state.tasks.tasks;
+export const selectPage = (state: RootState) => state.tasks.page; // добавьте этот селектор для получения текущей страницы
 
 export default tasksSlice.reducer;
