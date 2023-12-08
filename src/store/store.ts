@@ -1,13 +1,29 @@
-import { configureStore } from '@reduxjs/toolkit';
-import tasksReducer from './slices/tasksSlice';
+import { AnyAction, configureStore } from "@reduxjs/toolkit";
+import { ThunkDispatch } from 'redux-thunk';
+import rootReducer from "./rootReducer";
 
-const store = configureStore({
-  reducer: {
-    tasks: tasksReducer,
-  },
-});
 
+const api = import.meta.env.VITE_BASE_URL;
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: { api }
+      }
+    })
+})
 export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+export type AppDispatch = ThunkDispatch<RootState, unknown, AnyAction>;
 
-export default store;
+
+
+
+// import { configureStore } from '@reduxjs/toolkit';
+// import tasksReducer from './slices/tasksSlice';
+
+// export const store = configureStore({
+//   reducer: {
+//     tasks: tasksReducer,
+//   },
+// });

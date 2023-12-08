@@ -6,7 +6,7 @@ import { IForm } from "../../../models/interfaces/form";
 import { Submit } from "../../atoms/button/submit";
 import inputs from "../../../i18n/locales/signUp/inp_eng.json";
 import { Title } from "../../atoms/text";
-import { signUpAxios } from "../../../services/axios/signUp";
+import axios from "axios";
 
 export const SignUp = () => {
   const { register, handleSubmit, reset } = useForm<IForm>({
@@ -16,14 +16,21 @@ export const SignUp = () => {
   const onSubmit = async (data: IForm) => {
     console.log(data);
     reset();
-
-    const response = await signUpAxios({
-      firstName: data.firstName,
-      lastName: data.lastName,
-      email : data.email,
-      password : data.password
-    });
-    console.log(response);
+    try {
+      axios
+        .post(`${import.meta.env.VITE_BASE_URL}auth/register`, 
+        {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          password: data.password,
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+   } catch (error) {
+      console.log(error);
+   }
   };
 
   return (

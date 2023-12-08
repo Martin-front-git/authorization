@@ -5,7 +5,7 @@ import { deleteTask } from '../store/slices/tasksSlice';
 import { IDeleteButton } from '../models/interfaces/deleteButton';
 import { Delete } from '../components/atoms/button/delete';
 
-const baseURL = 'http://116.203.128.127:5680/api/v1/';
+const baseURL = import.meta.env.VITE_BASE_URL;
 const instance = axios.create({baseURL});
 
 const DeleteButton: React.FC<IDeleteButton> = ({ taskId }) => {

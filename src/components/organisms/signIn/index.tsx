@@ -1,3 +1,4 @@
+import axios from "axios"; // <-- Import axios here
 import { Box, FormControl } from "@chakra-ui/react";
 import { Title } from "../../atoms/text";
 import style from "./signIn.module.scss";
@@ -6,33 +7,33 @@ import { Inputs } from "../../atoms/input";
 import { IForm } from "../../../models/interfaces/form";
 import { Submit } from "../../atoms/button/submit";
 import inputs from "../../../i18n/locales/signIn/inp_eng.json";
-import { signInAxios } from "../../../services/axios/signIn";
-//import { useNavigate } from "react-router-dom";
+import { tokenCookie } from "../../../hooks/tokenCookie";
 
 export const SignIn = () => {
-  
   const { register, handleSubmit, reset } = useForm<IForm>({
     mode: "onBlur",
   });
-  //const navigate = useNavigate();
 
   const onSubmit = async (data: IForm) => {
     try {
       reset();
 
-      const response = await signInAxios({
-        email: data.email,
-        password: data.password,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_BASE_URL}auth/login`,
+        {
+          email: data.email,
+          password: data.password,
+        }
+      );
 
-      //if (response) {
-      //navigate("/user");
+      const token = response.data.data.accessToken;
+      tokenCookie.set({ token: token, page: 1, pageSize: null });
 
-      //}
-
+      console.log("Token was set in the cookie:", token);
       return response;
     } catch (error) {
-      console.error("Токен отсутствует или произошла ошибка входа", error);
+      console.error("Error during sign in:", error);
+      throw error;
     }
   };
 

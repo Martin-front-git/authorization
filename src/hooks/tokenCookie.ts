@@ -1,12 +1,11 @@
-import { ICookie } from "../models/interfaces/token";
-
+import { IToken } from "../models/interfaces/token";
 
 export const tokenCookie = {
-  set: ({ token }: ICookie) => {
+  set: ({ token }: IToken): void => {
     const expirationDate = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
-    document.cookie = `token=${token}; expires=${expirationDate.toUTCString()}; path=/`;
+    document.cookie = `token=${JSON.stringify(token)}; expires=${expirationDate.toUTCString()}; path=/`;
   },
-  get: (cookieName: string): string | null => {
+  get: (cookieName: string): IToken | null => {
     const name = cookieName + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
     const cookieArray = decodedCookie.split(';');
@@ -16,7 +15,14 @@ export const tokenCookie = {
         cookie = cookie.substring(1);
       }
       if (cookie.indexOf(name) == 0) {
-        return cookie.substring(name.length, cookie.length);
+        const tokenValue = cookie.substring(name.length, cookie.length);
+        try {
+          const tokenObject: IToken = JSON.parse(tokenValue);
+          return tokenObject;
+        } catch (error) {
+          console.error("Ошибка при парсинге токена:", error);
+          return null;
+        }
       }
     }
     return null;

@@ -31,7 +31,7 @@ export const NewTask: React.FC<NewTaskProps> = ({ onSave }) => {
       const currentDate = new Date();
       const formattedDate = formatDate(currentDate);
       const response = await axios.post(
-        "http://116.203.128.127:5680/api/v1/tasks",
+        `${import.meta.env.VITE_BASE_URL}tasks`,
         {
           title,
           description,
@@ -55,10 +55,10 @@ export const NewTask: React.FC<NewTaskProps> = ({ onSave }) => {
   };
 
   return (
-    <Box>
-      <Buton onClick={toggleForm} text={"New task"} />
+    <Box display='flex' width='100%' h="80px" alignItems='center'>
+      <Box><Buton onClick={toggleForm} text={"New task"} /></Box>
       {isOpen && (
-        <Box>
+        <Box display='flex' justifyContent='center' alignItems='center' w="97%">
           <Textareaa
             placeholder="Title"
             value={title}
@@ -69,7 +69,9 @@ export const NewTask: React.FC<NewTaskProps> = ({ onSave }) => {
             value={description}
             onchange={(e) => setDescription(e.target.value)}
           />
-          <Buton onClick={handleSave} text={'Save'}/>
+          <Box>
+            <Buton onClick={handleSave} text={'Save'}/>
+          </Box>
         </Box>
       )}
     </Box>

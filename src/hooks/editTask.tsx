@@ -22,7 +22,7 @@ const TaskEditLogic: React.FC<TaskEditProps> = ({
     try {
       const token = tokenCookie.get("token");
       await axios.patch(
-        `http://116.203.128.127:5680/api/v1/tasks/${taskId}`,
+        `${import.meta.env.VITE_BASE_URL}tasks/${taskId}`,
         {
           title: editedTitle,
           description: editedDescription,
@@ -61,8 +61,10 @@ const TaskEditLogic: React.FC<TaskEditProps> = ({
         value={editedDescription}
         onchange={(e) => setEditedDescription(e.target.value)}
       />
-      <Buton onClick={saveEditedTask} text={"Save"} />
-      <Buton onClick={onCancel} text={"Cancel"} />
+      <Box position='absolute' left='25%' bottom={2}>
+        <Buton onClick={saveEditedTask} text={"Save"} />
+        <Buton onClick={onCancel} text={"Cancel"} />
+      </Box>
     </Box>
   );
 };
