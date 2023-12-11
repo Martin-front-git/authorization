@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import tasksReducer from './slices/tasksSlice';
-import userReducer from './slices/userSlice';
+import authorizationReducer from './slices/authorizationSlice';
 export const store = configureStore({
   reducer: {
     tasks: tasksReducer,
-    user : userReducer
+    authorization : authorizationReducer
   },
 });
 export type AppDispatch = typeof store.dispatch

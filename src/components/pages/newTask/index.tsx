@@ -4,9 +4,8 @@ import { useState } from "react";
 import { addTasks, getTasks } from "../../../store/slices/fetchContent";
 import { AppDispatch } from "../../../store/store";
 
-
 export default function NewTask() {
-    const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch<AppDispatch>();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const formatDate = (date: Date): string => {
@@ -24,10 +23,10 @@ export default function NewTask() {
         description,
         dueDate: formattedDate,
         status: "To Do",
-      };  
-    dispatch(addTasks(task)).then(() => {
-      dispatch(getTasks());
-    })
+      };
+      dispatch(addTasks(task)).then(() => {
+        dispatch(getTasks());
+      });
       setTitle("");
       setDescription("");
     }
@@ -35,8 +34,18 @@ export default function NewTask() {
 
   return (
     <Box>
-      <Input value={title} onChange={(e) => setTitle(e.target.value)} type="text" placeholder="Заголовок" />
-      <Input value={description} onChange={(e) => setDescription(e.target.value)} type="text" placeholder="Описание" />
+      <Input
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        type="text"
+        placeholder="Заголовок"
+      />
+      <Input
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        type="text"
+        placeholder="Описание"
+      />
       <Button onClick={onPost}>Отправить</Button>
     </Box>
   );

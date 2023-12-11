@@ -29,8 +29,7 @@ export const tokenCookie = {
     return null;
   },
   remove: (): void => {
-    document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; Secure; SameSite=None";  
-    window.location.href = "/";
+    document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; Secure; SameSite=None"; 
   },
   
 };

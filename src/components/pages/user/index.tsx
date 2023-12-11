@@ -12,13 +12,12 @@ const UserPage = () => {
   const isLoading = useSelector((state: any) => state.tasks.isLoading);
   const error = useSelector((state: any) => state.tasks.error);
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     dispatch(getTasks());
   }, [dispatch]);
-  console.log(tasks);
 
-  const onDelate = (id: string) => {
+  const onDelete = (id: string) => {
     dispatch(deleteTasks(id)).then(() => {
       dispatch(getTasks());
     });
@@ -31,6 +30,7 @@ const UserPage = () => {
   if (error) {
     return error;
   }
+
   return (
     <Box mt={10} display="flex" flexWrap="wrap" gap={1} w="100%">
       {tasks.map((task: any) => (
@@ -42,11 +42,13 @@ const UserPage = () => {
           m="0px auto"
           position="relative"
         >
-          <Box onClick={() => navigate('/user/edit', { state: { task } })}>
+          <Box>
+            <Delete onClick={() => onDelete(task.id)} text={"X"} />
+            <Box onClick={() => navigate("/user/edit", { state: { task } })}>
               <p>{task.title}</p>
               <p>{task.description}</p>
-              <Delete onClick={() => onDelate(task.id)} text={"X"} />
             </Box>
+          </Box>
         </Box>
       ))}
     </Box>

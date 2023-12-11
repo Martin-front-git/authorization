@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import instance from "../../services/instance";
+import instance from "../../services/axios/instance";
 import { ITask } from "../../models/interfaces/tasks";
 
 
@@ -25,7 +25,7 @@ export const editTasks = createAsyncThunk("tasks/editTasks", async (task: ITask)
     title: task.title,
     description: task.description,
     dueDate: task.dueDate,
-    status: "To Do",
+    status: task.status,
   });
 
   return res.data;
@@ -35,10 +35,14 @@ export const deleteTasks = createAsyncThunk(
   'tasks/deleteTasks',
   async (id:string) => {
     try {
-      const res = await instance.delete(`tasks/${id}`)
-      return res;
+      await instance.delete(`tasks/${id}`)
+      return id;
     } catch (error) {
       return error;
     }
   }
-)
+);
+
+
+
+

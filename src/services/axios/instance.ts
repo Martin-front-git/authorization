@@ -1,6 +1,6 @@
 import axios from "axios";
-import { tokenCookie } from "../hooks/tokenCookie";
-import refreshAccessToken from "../hooks/refreshToken";
+import { tokenCookie } from "../../hooks/tokenCookie";
+import refreshAccessToken from "../../hooks/refreshToken";
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,

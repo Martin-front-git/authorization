@@ -1,6 +1,6 @@
 import { useLocation} from "react-router-dom";
 import { Links } from "../../atoms/link"
-import { Box, Button, Input } from "@chakra-ui/react";
+import { Box, Button, Input, Select } from "@chakra-ui/react";
 import { AppDispatch } from "../../../store/store";
 import { useDispatch } from "react-redux";
 import { editTasks, getTasks } from "../../../store/slices/fetchContent";
@@ -10,8 +10,7 @@ export const EditTask = () => {
     const dispatch = useDispatch<AppDispatch>();
     const location = useLocation();
     const task = location.state.task;
-
-    // Используйте состояние React для хранения значений полей ввода
+    const [status, setStatus] = useState(task.status);
     const [title, setTitle] = useState(task.title);
     const [description, setDescription] = useState(task.description);
 
@@ -37,24 +36,30 @@ export const EditTask = () => {
                 title,
                 description,
                 dueDate: dueDate,
-                status: "To Do",
+                status: status,
             };  
             dispatch(editTasks(updatedTask)).then(() => {
                 dispatch(getTasks());
-            })
+            });
             setTitle("");
             setDescription("");
+            setStatus("To Do");
         }
     };
     
     return (
         <>
-            <Links {...editTask}/>
-            <Box>
-                <Input value={title} onChange={(e) => setTitle(e.target.value)} type="text" placeholder="Заголовок" />
-                <Input value={description} onChange={(e) => setDescription(e.target.value)} type="text" placeholder="Описание" />
-                <Button onClick={onPost}>Отправить</Button>
-            </Box>
-        </>
+        <Links {...editTask}/>
+        <Box>
+            <Input value={title} onChange={(e) => setTitle(e.target.value)} type="text" placeholder="Заголовок" />
+            <Input value={description} onChange={(e) => setDescription(e.target.value)} type="text" placeholder="Описание" />
+            <Select value={status} onChange={(e) => setStatus(e.target.value)}>
+                <option value="To Do">To Do</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Done">Done</option>
+            </Select>
+            <Button onClick={onPost}>Отправить</Button>
+        </Box>
+    </>
     )
 }

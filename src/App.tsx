@@ -1,10 +1,10 @@
-import { RegisterSite } from "./components/templates/registerSite";
+import { Authorization } from "./components/templates/authorization";
 
 
 function App() {
   return (
     <>
-      <RegisterSite/>
+      <Authorization/>
     </>
   );
 }
