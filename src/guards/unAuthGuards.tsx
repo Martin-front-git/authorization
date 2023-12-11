@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { IGuard } from '../models/interfaces/guard';
 
 const UnAuthGuard:React.FC<IGuard> = ({component}) => {

@@ -8,12 +8,16 @@ import { IForm } from "../../../models/interfaces/form";
 import { Submit } from "../../atoms/button/submit";
 import inputs from "../../../i18n/locales/signIn/inp_eng.json";
 import { tokenCookie } from "../../../hooks/tokenCookie";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logIn } from "../../../store/slices/userSlice";
 
 export const SignIn = () => {
+  const navigate = useNavigate();
   const { register, handleSubmit, reset } = useForm<IForm>({
     mode: "onBlur",
   });
-
+  const dispatch = useDispatch();
   const onSubmit = async (data: IForm) => {
     try {
       reset();
@@ -26,10 +30,17 @@ export const SignIn = () => {
         }
       );
 
-      const token = response.data.data.accessToken;
-      tokenCookie.set({ token: token, page: 1, pageSize: null });
-
-      console.log("Token was set in the cookie:", token);
+      const accessToken = response.data.data.accessToken;
+      tokenCookie.set({ accessToken }); 
+      console.log("Token was set in the cookie:", accessToken);
+      if(accessToken !== ""){
+        try {
+           dispatch(logIn());
+           navigate("/user")
+        } catch (error) {
+          return error;
+        }
+      }
       return response;
     } catch (error) {
       console.error("Error during sign in:", error);

@@ -3,7 +3,7 @@ import { IToken } from '../models/interfaces/token';
 
 
 
-export const getTasks = async ({ token, page }: { token: IToken, page: number, pageSize : number }) => {
+export const getTask = async ({ token, page }: { token: IToken, page: number, pageSize : number }) => {
 
   try {
     const config = {

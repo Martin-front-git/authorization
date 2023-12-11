@@ -1,12 +1,12 @@
 import { IToken } from "../models/interfaces/token";
 
 export const tokenCookie = {
-  set: ({ token }: IToken): void => {
+  set: ({ accessToken }: IToken): void => {
     const expirationDate = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
-    document.cookie = `token=${JSON.stringify(token)}; expires=${expirationDate.toUTCString()}; path=/`;
+    document.cookie = `accessToken=${JSON.stringify(accessToken)}; expires=${expirationDate.toUTCString()}; path=/`;
   },
-  get: (cookieName: string): IToken | null => {
-    const name = cookieName + "=";
+  get: (accessToken: string): IToken | null => {
+    const name = accessToken + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
     const cookieArray = decodedCookie.split(';');
     for (let i = 0; i < cookieArray.length; i++) {
@@ -27,4 +27,9 @@ export const tokenCookie = {
     }
     return null;
   },
+  remove: (): void => {
+    document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; Secure; SameSite=None";  
+    window.location.href = "/signIn";
+  },
+  
 };

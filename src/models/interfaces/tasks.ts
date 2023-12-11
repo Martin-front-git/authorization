@@ -2,6 +2,8 @@ export interface ITask {
     id: number;
     title: string;
     description: string;
+    dueDate : Date ;
+    status : string
   }
   
   export interface TasksState {

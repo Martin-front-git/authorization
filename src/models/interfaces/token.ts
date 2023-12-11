@@ -1,5 +1,6 @@
 export interface IToken {
-    token? : string
+    accessToken? : string
     page? : number
     pageSize? : number | null
+    remove? : any
 }
