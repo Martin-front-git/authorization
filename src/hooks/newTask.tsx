@@ -46,7 +46,7 @@ export const NewTask: React.FC<NewTaskProps> = ({ onSave }) => {
           },
         }
       );
-      dispatch(addTask(response.data));
+      dispatch(addTasks(response.data));
       onSave();
       toggleForm();
     } catch (error) {

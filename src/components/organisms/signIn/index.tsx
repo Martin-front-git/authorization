@@ -31,7 +31,8 @@ export const SignIn = () => {
       );
 
       const accessToken = response.data.data.accessToken;
-      tokenCookie.set({ accessToken }); 
+      const refreshToken = response.data.data.refreshToken;
+      tokenCookie.set({ accessToken,refreshToken }); 
       console.log("Token was set in the cookie:", accessToken);
       if(accessToken !== ""){
         try {

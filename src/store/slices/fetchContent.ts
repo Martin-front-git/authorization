@@ -14,17 +14,18 @@ export const getTasks = createAsyncThunk("tasks/getTasks", async () => {
   }
 });
 
-export const addTasks = createAsyncThunk("tasks/addTask", async (task) => {
-  const res = await instance.post("/tasks", task);
-  return res.data;
+export const addTasks = createAsyncThunk("tasks/addTask", async (task:any) => {
+  const res = await instance.post("tasks", task);
+  
+  return res.data.data;
 });
 
 export const editTasks = createAsyncThunk("tasks/editTasks", async (task: ITask) => {
   const res = await instance.patch(`tasks/${task.id}`, {
     title: task.title,
     description: task.description,
-    //dueDate: task.dueDate.substring(0, 10),
-    status: task.status,
+    dueDate: task.dueDate,
+    status: "To Do",
   });
 
   return res.data;
@@ -32,7 +33,7 @@ export const editTasks = createAsyncThunk("tasks/editTasks", async (task: ITask)
 
 export const deleteTasks = createAsyncThunk(
   'tasks/deleteTasks',
-  async (id) => {
+  async (id:string) => {
     try {
       const res = await instance.delete(`tasks/${id}`)
       return res;

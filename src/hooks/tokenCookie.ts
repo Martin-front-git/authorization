@@ -1,9 +1,10 @@
 import { IToken } from "../models/interfaces/token";
 
 export const tokenCookie = {
-  set: ({ accessToken }: IToken): void => {
+  set: ({ accessToken, refreshToken }: IToken): void => {
     const expirationDate = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
     document.cookie = `accessToken=${JSON.stringify(accessToken)}; expires=${expirationDate.toUTCString()}; path=/`;
+    document.cookie = `refreshToken=${JSON.stringify(refreshToken)}; expires=${expirationDate.toUTCString()}; path=/`;  
   },
   get: (accessToken: string): IToken | null => {
     const name = accessToken + "=";
@@ -29,7 +30,7 @@ export const tokenCookie = {
   },
   remove: (): void => {
     document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; Secure; SameSite=None";  
-    window.location.href = "/signIn";
+    window.location.href = "/";
   },
   
 };

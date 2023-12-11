@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 import { Links } from "../../atoms/link";
 import { useSelector } from "react-redux";
 import { tokenCookie } from "../../../hooks/tokenCookie";
-import { useNavigate } from "react-router-dom";
+import { Buton } from "../../atoms/button/button";
 
 export const Navbar = () => {
   const signIn = {
@@ -17,24 +17,30 @@ export const Navbar = () => {
     name: "user",
     link: "/user",
   };
-  
-  const isLoggedIn = useSelector((state:any) => state.user.isLoggedIn);
-  const navigate = useNavigate();
+  const newTask = {
+    name: "newTask",
+    link: "/newTask",
+  };
+  const isLoggedIn = useSelector((state: any) => state.user.isLoggedIn);
+
   const logOut = () => {
     tokenCookie.remove();
   };
   return (
-    <Box w='100%' h={50} bg='red'>
-      <Box display='flex' justifyContent='center' gap={10}>
+    <Box w="100%" h={50} bg="red">
+      <Box display="flex" justifyContent="center" gap={10}>
         {isLoggedIn ? (
           <>
+            <Links {...newTask} />
             <Links {...user} />
-            <button onClick={logOut}>Log Out</button>
+            <Buton onClick={logOut} text={'logOut'}/>
           </>
-        ) : ""}
-        
-        <Links {...signIn} />
-        <Links {...signUp} />
+        ) : (
+          <>
+            <Links {...signIn} />
+            <Links {...signUp} />
+          </>
+        )}
       </Box>
     </Box>
   );
