@@ -21,8 +21,8 @@ const authorizationSlice = createSlice({
     });
     builder.addCase(signIn.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.accessToken = action.payload.accessToken;
-      state.refreshToken = action.payload.refreshToken;
+      state.accessToken = action.payload.data.accessToken;
+      state.refreshToken = action.payload.data.refreshToken;
     });
     builder.addCase(signIn.rejected, (state, action) => {
       state.isLoading = false;

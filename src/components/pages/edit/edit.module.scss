@@ -1,0 +1,36 @@
+.editBlock{
+    width: 60%;
+    height: 80vh;
+    margin: 0px auto;
+    padding: 1%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 2%;
+    margin-top: 2%;
+    .backLink{
+        width: 13%;
+        padding: 1%;
+        border-radius: 10px;
+        text-align: center;
+    }
+    .editDiv{
+        .title{
+
+        }
+        .textarea{
+            height: 300px;
+            margin-top: 1%;
+        }
+        .selectBlock{
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2%;
+            .select{
+                outline-style: none;
+                width: 100px;
+                
+            }
+        }
+    }
+}

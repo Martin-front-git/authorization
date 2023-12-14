@@ -1,12 +1,41 @@
-.navbar{
-    width: 100%;
-    height: auto;
-    display: flex;
-    
-    flex-direction: column;
-    margin-top: 5%;
-    .button{
-        
-        
-    }
+@font-face {
+  font-family: "DancingScript";
+  src: local("DancingScript"),
+    url(../../../assets//fonts//static//DancingScript-Regular.ttf);
 }
+
+.taskBlock {
+  width: 80%;
+  
+  margin: 0px auto;
+  padding: 0.5%;
+  .taskDiv {
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    align-items: center;
+    height: auto;
+    margin-top: 2%;
+    .tasks {
+      width: 95%;
+      height: 430px;
+      margin: 0px auto;
+      border-radius: 10px;
+      padding: 10px;
+      cursor: pointer;
+      font-family: DancingScript;
+      overflow-y: auto;
+      .title {
+        font-size: 10vh;
+        text-align: center;
+      }
+      .post{
+        font-size: 4vh;
+      }
+    }
+  }
+}
+// @media only screen and (max-width: 600px) {
+//     .taskDiv{
+//         grid-template-columns: repeat(2,45%);
+//     }
+//   }

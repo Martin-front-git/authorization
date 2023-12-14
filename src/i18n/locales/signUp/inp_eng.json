@@ -1,21 +1,21 @@
 [
     {
-      "label": "Firstname",
+      "placeholder": "Firstname",
       "name": "firstName",
       "type": "text"
     },{
-      "label": "Lastname",
+      "placeholder": "Lastname",
       "name": "lastName",
       "type": "text"
     },
     {
-      "label": "Email",
+      "placeholder": "Email",
       "name": "email",
       "type": "email"
     },
     
     {
-      "label": "Password",
+      "placeholder": "Password",
       "name": "password",
       "type": "password"
     }

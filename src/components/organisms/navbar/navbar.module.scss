@@ -1,0 +1,19 @@
+.navbarBlock{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    position: relative;
+    
+    .navlink{
+        border-radius: 5px;
+        padding: 1% 2%;
+        cursor: pointer;
+    }
+    .navlink:active{
+        background-color: black;
+        transition: 0.7s;
+    }
+    
+}

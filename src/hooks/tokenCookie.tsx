@@ -4,10 +4,10 @@ export const tokenCookie = {
   set: ({ accessToken, refreshToken }: IToken): void => {
     const expirationDate = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
     document.cookie = `accessToken=${JSON.stringify(accessToken)}; expires=${expirationDate.toUTCString()}; path=/`;
-    document.cookie = `refreshToken=${JSON.stringify(refreshToken)}; expires=${expirationDate.toUTCString()}; path=/`;  
+    document.cookie = `refreshToken=${JSON.stringify(refreshToken)}; expires=${expirationDate.toUTCString()}; path=/`;
   },
-  get: (accessToken: string): IToken | null => {
-    const name = accessToken + "=";
+  get: (tokenName: string): IToken | null => {
+    const name = tokenName + "=";
     const decodedCookie = decodeURIComponent(document.cookie);
     const cookieArray = decodedCookie.split(';');
     for (let i = 0; i < cookieArray.length; i++) {
@@ -30,6 +30,6 @@ export const tokenCookie = {
   },
   remove: (): void => {
     document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; Secure; SameSite=None"; 
+    document.cookie = "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; Secure; SameSite=None"; 
   },
-  
 };

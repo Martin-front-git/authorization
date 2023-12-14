@@ -8,10 +8,13 @@ export const Buton = ({ text, onClick ,width}: IButton) => {
       _hover={{
         bgGradient: 'linear(to-l, #7928CA, #FF0080)',
       }}
-      
+      transition="background-color 1s"
       w={width === undefined ? '100px' : width}
       type="submit"
       onClick={onClick}
+      className="buton"
+      color='white'
+      fontFamily={"cursive"}
     >
       {text}
     </Button>

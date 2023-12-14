@@ -5,7 +5,7 @@ interface IText {
 export const Title = ({text}:IText) => {
   return (
     <>
-      <Text fontSize="xx-large" textAlign="center">{text}</Text>
+      <Text fontSize="xx-large" textAlign="center" fontFamily={"cursive"}>{text}</Text>
     </>
   );
 };

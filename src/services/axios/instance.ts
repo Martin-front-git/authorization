@@ -1,6 +1,6 @@
 import axios from "axios";
 import { tokenCookie } from "../../hooks/tokenCookie";
-import refreshAccessToken from "../../hooks/refreshToken";
+import {refreshAccessToken} from "../../hooks/refreshToken";
 
 const instance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -18,21 +18,24 @@ instance.interceptors.request.use(function (config) {
 });
 
 instance.interceptors.response.use(
-  function (response) {    
+  function (response) {
+    
     return response;
   },
   async function (error) {
-    if (error.code === "ERR_BAD_REQUEST") {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
       
-    } else if (error.response.status === 401){
-      console.log("err_invalid_access_token");
-      await refreshAccessToken();
-      const newAccessToken = tokenCookie.get("accessToken");
-      error.config.headers.Authorization = `Bearer ${newAccessToken}`;
-      return axios(error.config);
+      originalRequest._retry = true;
+        await refreshAccessToken();
+      const accessToken = tokenCookie.get("accessToken");
+      if (accessToken) {
+        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        return instance(originalRequest);
+      }
     }
     return Promise.reject(error);
-  }
+  },
 );
 
 export default instance;

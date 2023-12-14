@@ -1,11 +1,11 @@
 [
     {
-      "label": "email",
+      "placeholder": "email",
       "name": "email",
       "type": "text"
     },
     {
-      "label": "password",
+      "placeholder": "password",
       "name": "password",
       "type": "password"
     }

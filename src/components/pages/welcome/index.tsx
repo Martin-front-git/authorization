@@ -9,16 +9,18 @@ export const Welcome = () => {
   return (
     <Box className={style.welcomeBlock}>
       <Text fontSize={30}>Welcome</Text>
-      <Buton
-        onClick={() => navigate("/signIn")}
-        text={"signIn"}
-        width={"100%"}
-      />
-      <Buton
-        onClick={() => navigate("/signUp")}
-        text={"signUp"}
-        width={"100%"}
-      />
+      <Box className={style.buttonBlock}>
+        <Buton
+          onClick={() => navigate("/signIn")}
+          text={"signIn"}
+          width={"80%"}
+        />
+        <Buton
+          onClick={() => navigate("/signUp")}
+          text={"signUp"}
+          width={"80%"}
+        />
+      </Box>
     </Box>
   );
 };

@@ -1,27 +1,33 @@
-import axios from "axios";
 import { tokenCookie } from "./tokenCookie";
+import instance from "../services/axios/instance";
 
-const refreshAccessToken = async () => {
+export const refreshAccessToken = async () => {
   try {
-    const accessToken = tokenCookie.get("accessToken");
     const refreshToken = tokenCookie.get("refreshToken");
-
-    if (accessToken && refreshToken) {
-      const response = await axios.post("http://116.203.128.127:5680/api/v1", {
+    console.log(refreshToken);
+    
+    if (refreshToken) {
+      
+      const response = await instance.post("auth/refresh-token", {
         refreshToken,
       });
+      console.log(response);
 
-      if (response.status === 200) {
-        const newAccessToken = response.data.accessToken;
-        tokenCookie.set(newAccessToken);
+      if (response.status === 201) {
+        const newAccessToken = response.data.data.accessToken;
+        const newRefreshToken = response.data.data.refreshToken;
+
+        tokenCookie.set({
+          accessToken: newAccessToken,
+          refreshToken: newRefreshToken,
+        });
       }
     } else {
-      console.error("Ошибка: accessToken или refreshToken отсутствует в куки");
+      console.error("Ошибка: refreshToken отсутствует в куки");
     }
   } catch (error) {
-    console.error("Ошибка при обновлении access token:", error);
-    tokenCookie.remove();
+    console.log("Ошибка при обновлении access token:", error);
+    document.cookie =
+      "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; Secure; SameSite=None";
   }
 };
-
-export default refreshAccessToken;
