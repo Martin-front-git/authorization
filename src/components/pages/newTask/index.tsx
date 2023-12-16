@@ -30,7 +30,7 @@ export default function NewTask() {
       const task = {
         title,
         description,
-        dueDate: dueDate.toISOString().split("T")[0],
+        dueDate: dueDate.toISOString().split('T')[0],
         status: "To Do",
       };
       dispatch(addTasks(task))

@@ -7,24 +7,35 @@ import style from "./user.module.scss";
 import { AppDispatch } from "../../../store/store";
 import { deleteTasks, getTasks } from "../../../store/slices/fetchContent";
 import Pagination from "../../organisms/pagination";
+import "react-calendar/dist/Calendar.css";
+import { DatePicker } from "../../organisms/datePicker";
+import StatusMenu from "../../organisms/statusMenu";
 
 const UserPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector((state: any) => state.tasks.isLoading);
   const error = useSelector((state: any) => state.tasks.error);
   const navigate = useNavigate();
-  const tasks = useSelector((state: any) => state.tasks.contents) || [];
+  const allTasks = useSelector((state: any) => state.tasks.contents) || [];
   const totalTasksCount = useSelector((state: any) => state.tasks.totalCount);
-  
-  const take = 10; 
+
+  const take = 10;
   const pageCount = Math.ceil(totalTasksCount / take);
 
   const [currentPage, setCurrentPage] = useState(0);
+  const [statusFilter, setStatusFilter] = useState("All");
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   useEffect(() => {
-    const skip = currentPage * take; 
-    dispatch(getTasks({ skip }));
-  }, [dispatch, currentPage, take]);
+    const skip = currentPage * take;
+    dispatch(
+      getTasks({
+        skip,
+        status: statusFilter !== "All" ? statusFilter : undefined,
+        date: selectedDate ? selectedDate.toISOString() : undefined,
+      })
+    );
+  }, [dispatch, currentPage, take, statusFilter, selectedDate]);
 
   const onDelete = (id: string) => {
     const skip = currentPage * take;
@@ -36,8 +47,11 @@ const UserPage = () => {
   const handlePageChange = ({ selected }: { selected: number }) => {
     setCurrentPage(selected);
   };
-  const bgColor = useColorModeValue('rgba(255, 255, 255, .366)','rgba(0, 0, 0, 0.400)');
-  
+  const bgColor = useColorModeValue(
+    "rgba(255, 255, 255, .366)",
+    "rgba(0, 0, 0, 0.400)"
+  );
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -48,17 +62,36 @@ const UserPage = () => {
 
   return (
     <Box className={style.taskBlock}>
+      <StatusMenu setStatusFilter={setStatusFilter} />
+
+      <DatePicker
+        selectedDate={selectedDate}
+        setSelectedDate={setSelectedDate}
+      />
+
       <Box className={style.taskDiv}>
-        {Array.isArray(tasks) && tasks.map((task: any) => (
-          <Box position='relative' key={task.id} className={style.tasks} bgColor={bgColor}>
-            <Box><Delete onClick={() => onDelete(task.id)} text="X"/></Box>
-            <Box onClick={() => navigate(`/tasks/${task.id}/update`, { state: { task } })}>
-              <Text className={style.title}>{task.title}</Text>
-              <Text className={style.post}>{task.description}</Text>
-              <Text className={style.post}>{task.status}</Text>
+        {Array.isArray(allTasks) &&
+          allTasks.map((task: any) => (
+            <Box
+              position="relative"
+              key={task.id}
+              className={style.tasks}
+              bgColor={bgColor}
+            >
+              <Box>
+                <Delete onClick={() => onDelete(task.id)} text="X" />
+              </Box>
+              <Box
+                onClick={() =>
+                  navigate(`/tasks/${task.id}/update`, { state: { task } })
+                }
+              >
+                <Text className={style.title}>{task.title}</Text>
+                <Text className={style.post}>{task.description}</Text>
+                <Text className={style.post}>{task.status}</Text>
+              </Box>
             </Box>
-          </Box>
-        ))}
+          ))}
       </Box>
       <Pagination
         pageCount={pageCount}
@@ -69,6 +102,4 @@ const UserPage = () => {
   );
 };
 
-
 export default UserPage;
-

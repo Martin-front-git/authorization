@@ -2,18 +2,22 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import instance from "../../services/axios/instance";
 import { ITask } from "../../models/interfaces/tasks";
 
+
 export const getTasks = createAsyncThunk(
   "tasks/getTasks",
-  async ({ skip }: { skip: number }) => {
+  async ({ skip, status, date }: { skip: number, status?: string, date?: string }) => {
     try {
-      const res = await instance.get(
-        `${import.meta.env.VITE_BASE_URL}tasks?skip=${skip}&take=10`
-      );
+      let url = `${import.meta.env.VITE_BASE_URL}tasks?skip=${skip}&take=10`;
+      if (status) {
+        url += `&status=${encodeURIComponent(status)}`;
+      }
+      if (date) {
+        url += `&dueDate=${encodeURIComponent(date)}`;
+      }
+      const res = await instance.get(url);
       console.log(res);
       
       const data = await res.data.data;
-      
-
       const totalCount = res.data._meta.total;
       
       return { data, totalCount };
