@@ -17,10 +17,10 @@ export const Navbar = () => {
     <Box className={style.navbarBlock} > 
     <ThemeToggle/>
       <Box className={style.navlink} boxShadow="dark-lg">
-        <NavLink to={"/newTask"}>New Task</NavLink>
+        <NavLink to={"/tasks/create"}>New Task</NavLink>
       </Box>
       <Box className={style.navlink} boxShadow="dark-lg">
-        <NavLink to={"/user"}>User</NavLink>
+        <NavLink to={"/tasks"}>Tasks</NavLink>
       </Box>
       <Box>
         <Buton onClick={logOut} text={"logOut"} />

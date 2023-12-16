@@ -4,16 +4,13 @@ import instance from "../services/axios/instance";
 export const refreshAccessToken = async () => {
   try {
     const refreshToken = tokenCookie.get("refreshToken");
-    console.log(refreshToken);
-    
+
     if (refreshToken) {
-      
       const response = await instance.post("auth/refresh-token", {
         refreshToken,
       });
-      console.log(response);
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         const newAccessToken = response.data.data.accessToken;
         const newRefreshToken = response.data.data.refreshToken;
 

@@ -4,6 +4,7 @@ export interface IInitial {
     isLoading : boolean;
     error : null | string | undefined
     page : number;
+    totalCount : any
   }
 export interface IAuthInitial {
     isLoading : boolean;

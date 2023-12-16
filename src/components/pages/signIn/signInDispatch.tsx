@@ -13,7 +13,7 @@ export const SignInDispatch = async ({data, reset, dispatch, navigate}:ISignInDi
         accessToken: action.payload.data.accessToken,
         refreshToken: action.payload.data.refreshToken,
       });
-      navigate("/user");
+      navigate("/tasks");
     }
   } catch (error) {
     console.error("Error during sign in:", error);

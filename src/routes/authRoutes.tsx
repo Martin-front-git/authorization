@@ -6,18 +6,18 @@ import { EditTask } from "../components/pages/edit";
 
 const AuthRoutes = [
   <Route
-    key="user"
-    path="/user/*"
+    key="tasks"
+    path="/tasks/*"
     element={<AuthGuard component={<UserPage />} />}
   />,
   <Route
     key="edit"
-    path="/user/edit/*"
+    path="/tasks/:taskId/update/*"
     element={<AuthGuard component={<EditTask />} />}
   />,
   <Route
-    key="newTask"
-    path="/newTask/*"
+    key="create"
+    path="/tasks/create/*"
     element={<AuthGuard component={<NewTask />} />}
   />,
 ];

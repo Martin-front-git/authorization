@@ -1,41 +1,42 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteTasks, getTasks } from "../../../store/slices/fetchContent";
-import { AppDispatch } from "../../../store/store";
 import { Box, Text, useColorModeValue } from "@chakra-ui/react";
 import { Delete } from "../../atoms/button/delete";
 import { useNavigate } from "react-router-dom";
-import { Pagination } from "../../organisms/pagination";
 import style from "./user.module.scss";
+import { AppDispatch } from "../../../store/store";
+import { deleteTasks, getTasks } from "../../../store/slices/fetchContent";
+import Pagination from "../../organisms/pagination";
 
 const UserPage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const tasks = useSelector((state: any) => state.tasks.contents) || [];
   const isLoading = useSelector((state: any) => state.tasks.isLoading);
   const error = useSelector((state: any) => state.tasks.error);
   const navigate = useNavigate();
-  console.log(tasks);
+  const tasks = useSelector((state: any) => state.tasks.contents) || [];
+  const totalTasksCount = useSelector((state: any) => state.tasks.totalCount);
   
-  useEffect(() => {
-    dispatch(getTasks());
-  }, [dispatch]);
+  const take = 10; 
+  const pageCount = Math.ceil(totalTasksCount / take);
 
   const [currentPage, setCurrentPage] = useState(0);
-  const itemsPerPage = 3;
-  const offset = currentPage * itemsPerPage;
 
-  const displayedTasks = tasks.slice(offset, offset + itemsPerPage);
-
-  const onPageChange = (selectedItem: { selected: number }) => {
-    setCurrentPage(selectedItem.selected);
-  };
+  useEffect(() => {
+    const skip = currentPage * take; 
+    dispatch(getTasks({ skip }));
+  }, [dispatch, currentPage, take]);
 
   const onDelete = (id: string) => {
+    const skip = currentPage * take;
     dispatch(deleteTasks(id)).then(() => {
-      dispatch(getTasks());
+      dispatch(getTasks({ skip }));
     });
   };
-  const bgColor = useColorModeValue('rgba(255, 255, 255, 0.366)','rgba(0, 0, 0, 0.400)');
+
+  const handlePageChange = ({ selected }: { selected: number }) => {
+    setCurrentPage(selected);
+  };
+  const bgColor = useColorModeValue('rgba(255, 255, 255, .366)','rgba(0, 0, 0, 0.400)');
   
   if (isLoading) {
     return <div>Loading...</div>;
@@ -48,26 +49,26 @@ const UserPage = () => {
   return (
     <Box className={style.taskBlock}>
       <Box className={style.taskDiv}>
-        {displayedTasks.map((task: any) => (
-          <Box key={task.id} className={style.tasks} shadow="lg" bgColor={bgColor}>
-            <Box
-              position="relative"
-              onClick={() => navigate("/user/edit", { state: { task } })}
-            >
-              <Delete onClick={() => onDelete(task.id)} text="X" />
+        {Array.isArray(tasks) && tasks.map((task: any) => (
+          <Box position='relative' key={task.id} className={style.tasks} bgColor={bgColor}>
+            <Box><Delete onClick={() => onDelete(task.id)} text="X"/></Box>
+            <Box onClick={() => navigate(`/tasks/${task.id}/update`, { state: { task } })}>
               <Text className={style.title}>{task.title}</Text>
               <Text className={style.post}>{task.description}</Text>
+              <Text className={style.post}>{task.status}</Text>
             </Box>
           </Box>
         ))}
       </Box>
       <Pagination
-        tasks={tasks}
-        onPageChange={onPageChange}
-        pageCount={Math.ceil(tasks.length / itemsPerPage)}
+        pageCount={pageCount}
+        currentPage={currentPage}
+        handlePageChange={handlePageChange}
       />
     </Box>
   );
 };
 
+
 export default UserPage;
+

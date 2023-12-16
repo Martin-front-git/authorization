@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { AppDispatch } from "../../../store/store";
 import { useDispatch } from "react-redux";
-import { editTasks, getTasks } from "../../../store/slices/fetchContent";
+import { editTasks } from "../../../store/slices/fetchContent";
 import { useState } from "react";
 import style from "./edit.module.scss";
 
@@ -27,7 +27,7 @@ export const EditTask = () => {
 
   const editTask = {
     name: "<- go back",
-    link: "/user",
+    link: "/tasks",
   };
 
   const formatDate = (date: Date): string => {
@@ -49,9 +49,7 @@ export const EditTask = () => {
         dueDate: dueDate,
         status: status,
       };
-      dispatch(editTasks(updatedTask)).then(() => {
-        dispatch(getTasks());
-      });
+      dispatch(editTasks(updatedTask));
       setTitle("");
       setDescription("");
     }
@@ -67,13 +65,13 @@ export const EditTask = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           type="text"
-          placeholder="Заголовок"
+          placeholder="Title"
         />
         <Textarea
           className={style.textarea}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Описание"
+          placeholder="Type your text"
         />
         <Box className={style.selectBlock}>
           <Menu>
@@ -82,20 +80,13 @@ export const EditTask = () => {
             </MenuButton>
             <MenuList>
             <MenuOptionGroup value={status} type="radio" onChange={(value) => setStatus(value)}>
-                <MenuItem value="To Do" onClick={() => setStatus("To Do")}>Сделать</MenuItem>
-                <MenuItem value="In Progress" onClick={() => setStatus("In Progress")}>В процессе</MenuItem>
-                <MenuItem value="Done" onClick={() => setStatus("Done")}>Готово</MenuItem>
+                <MenuItem value="To Do" onClick={() => setStatus("To Do")}>To Do</MenuItem>
+                <MenuItem value="In Progress" onClick={() => setStatus("In Progress")}>In Progress</MenuItem>
+                <MenuItem value="Done" onClick={() => setStatus("Done")}>Done</MenuItem>
             </MenuOptionGroup>
-
-
             </MenuList>
           </Menu>
-          {/* <Select className={style.select} value={status} onChange={(e) => setStatus(e.target.value)}>
-                <option value="To Do">To Do</option>
-                <option value="In Progress">In Progress</option>
-                <option value="Done">Done</option>
-            </Select> */}
-          <Button onClick={onPost}>Отправить</Button>
+          <Button onClick={onPost}>Send</Button>
         </Box>
       </Box>
     </Box>
