@@ -2,13 +2,14 @@ import { Button, Popover, PopoverContent, PopoverTrigger } from "@chakra-ui/reac
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import style from './calendar.module.scss';
+import { ChevronDownIcon } from "@chakra-ui/icons";
 
 
 export const DatePicker = ({ selectedDate, setSelectedDate }:any) => {
   return (
-    <Popover>
+    <Popover >
         <PopoverTrigger>
-          <Button>Select data</Button>
+          <Button rightIcon={<ChevronDownIcon />}>Select data</Button>
         </PopoverTrigger>
         <PopoverContent>
           <Calendar

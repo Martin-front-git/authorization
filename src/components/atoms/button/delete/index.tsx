@@ -11,7 +11,6 @@ export const Delete = ({ text, onClick }: IButton) => {
       position={"absolute"}
       type="submit"
       onClick={onClick}
-      zIndex={1}
     >
       {text}
     </Button>

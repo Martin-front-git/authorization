@@ -7,12 +7,12 @@ export const SignInDispatch = async ({data, reset, dispatch, navigate}:ISignInDi
     reset();
     const action = await dispatch(signIn(data));
     if (signIn.fulfilled.match(action)) {
-      console.log(action.payload.data.refreshToken);
       
       tokenCookie.set({
         accessToken: action.payload.data.accessToken,
         refreshToken: action.payload.data.refreshToken,
       });
+      
       navigate("/tasks");
     }
   } catch (error) {

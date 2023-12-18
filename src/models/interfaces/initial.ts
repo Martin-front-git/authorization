@@ -10,5 +10,7 @@ export interface IAuthInitial {
     isLoading : boolean;
     error : null | string | undefined
     accessToken : string | never[],
-    refreshToken : string | never[]
+    refreshToken : string | never[],
+    contents : string[]
+    files : any
   }

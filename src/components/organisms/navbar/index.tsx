@@ -1,17 +1,21 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { Buton } from "../../atoms/button/button";
 import { tokenCookie } from "../../../hooks/tokenCookie";
 import style from "./navbar.module.scss";
 import { ThemeToggle } from "../../atoms/themes/themeToggle";
-import { Box } from "@chakra-ui/react";
+import { Box, Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../../store/store";
+import { useEffect } from "react";
+import { getUser } from "../../../store/slices/authFetchContent";
 
 export const Navbar = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const logOut = () => {
-    tokenCookie.remove();
-    navigate("/*");
-  };
+  const user = useSelector((state:any) => state.authorization.contents);
   
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
 
   return (
     <Box className={style.navbarBlock} > 
@@ -23,7 +27,15 @@ export const Navbar = () => {
         <NavLink to={"/tasks"}>Tasks</NavLink>
       </Box>
       <Box>
-        <Buton onClick={logOut} text={"logOut"} />
+      <Menu>
+        <MenuButton as={Button}>
+          {user.firstName}
+        </MenuButton>
+        <MenuList>
+          <MenuItem onClick={() => {navigate("/user");}}>User Page</MenuItem>
+          <MenuItem onClick={() => {tokenCookie.remove(); navigate("/*");}}>Log Out</MenuItem>
+        </MenuList>
+      </Menu>
       </Box>
     </Box>
   );

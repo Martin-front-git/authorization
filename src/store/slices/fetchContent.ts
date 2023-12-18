@@ -15,7 +15,6 @@ export const getTasks = createAsyncThunk(
         url += `&dueDate=${encodeURIComponent(date)}`;
       }
       const res = await instance.get(url);
-      console.log(res);
       
       const data = await res.data.data;
       const totalCount = res.data._meta.total;
