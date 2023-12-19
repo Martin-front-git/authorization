@@ -18,11 +18,11 @@ export const getTasks = createAsyncThunk(
       
       const data = await res.data.data;
       const totalCount = res.data._meta.total;
+      console.log(totalCount);
       
       return { data, totalCount };
     } catch (error) {
       console.log(error);
-      throw error;
     }
   }
 );

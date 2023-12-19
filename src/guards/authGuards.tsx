@@ -5,7 +5,6 @@ import UserPage from "../components/pages/tasks";
 import NewTask from "../components/pages/newTask";
 import { EditTask } from "../components/pages/edit";
 import { Navbar } from "../components/organisms/navbar";
-import { Footer } from "../components/pages/footer";
 
 const AuthGuard: React.FC<IGuard> = ({ component }) => {
   useEffect(() => {}, [component]);
@@ -19,7 +18,6 @@ const AuthGuard: React.FC<IGuard> = ({ component }) => {
         <Route path="/user/edit" element={<EditTask />} />
         <Route path="/newTask" element={<NewTask />} />
       </Routes>
-      <Footer/>
     </>
   );
 };

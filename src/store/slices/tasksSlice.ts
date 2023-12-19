@@ -22,8 +22,10 @@ const tasksSlice = createSlice({
     });
     builder.addCase(getTasks.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.contents = action.payload.data;
-      state.totalCount = action.payload?.totalCount;
+      if (action.payload) {
+        state.contents = action.payload.data;
+        state.totalCount = action.payload.totalCount;
+      }
     });
     builder.addCase(getTasks.rejected, (state, action) => {
       state.isLoading = false;
